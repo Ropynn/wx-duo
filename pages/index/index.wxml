@@ -1,0 +1,34 @@
+<!--index.wxml-->
+<view class="container">
+  <!-- <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view> -->
+
+  <!-- 轮播图 -->
+  <swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1000">
+    <block wx:for="{{movies}}" wx:for-index="index" wx:key='*this'>
+      <swiper-item>
+        <image src="{{item.url}}" class="slide-image" mode="aspectFill" />
+      </swiper-item>
+    </block>
+  </swiper>
+
+  <!-- <view class="usermotto">
+    <text class="user-motto">{{motto}}</text>
+  </view> -->
+  <scroll-view class='type-navbar' scroll-x="true">
+    <view class="type-box" wx:for-items="{{categories}}" wx:key="id">
+      <view id="{{item.id}}" class="type-navbar-item {{activeCategoryId == item.id ? 'type-item-on' : ''}}" bindtap="tabClick">
+        {{item.name}}
+      </view>
+    </view>
+  </scroll-view>
+  <view wx:for-items="{{categories}}" wx:key="name" class="test" hidden="{{activeCategoryId == item.id ? 'type-item-on' : ''}}">
+    <view class='tab-list'>{{item.name}}</view>
+  </view>
+
+</view>
