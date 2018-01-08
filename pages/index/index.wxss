@@ -70,5 +70,5 @@
   background-color: #0f1;
   text-align: center;
   height: 200rpx;
+  margin: 20rpx 0;
 }
-

@@ -1,12 +1,12 @@
-{
+ {
   "pages": [
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/test/test"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "哆蕾咪",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
@@ -18,8 +18,8 @@
         "text": "首页"
       },
       {
-        "pagePath": "pages/logs/logs",
-        "text": "日志"
+        "pagePath": "pages/test/test",
+        "text": "测试tab栏"
       }
     ]
   }

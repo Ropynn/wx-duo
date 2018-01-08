@@ -1,15 +1,17 @@
 <!--index.wxml-->
 <view class="container">
-  <!-- <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view> -->
+  <scroll-view class='type-navbar' scroll-x="true" scroll-left="{{scrollLeft}}">
+    <view class="type-box" wx:for-items="{{categories}}" wx:key="id">
+      <view data-current="{{item.id}}" class="type-navbar-item {{currentTab  == item.id ? 'type-item-on' : ''}}" bindtap="swichNav">
+        {{item.name}}
+      </view>
+    </view>
+  </scroll-view>
+  <view>
 
+  </view>
   <!-- 轮播图 -->
-  <swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1000">
+  <swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1000" current="{{currentTAB}}">
     <block wx:for="{{movies}}" wx:for-index="index" wx:key='*this'>
       <swiper-item>
         <image src="{{item.url}}" class="slide-image" mode="aspectFill" />
@@ -17,18 +19,20 @@
     </block>
   </swiper>
 
-  <!-- <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view> -->
-  <scroll-view class='type-navbar' scroll-x="true">
-    <view class="type-box" wx:for-items="{{categories}}" wx:key="id">
-      <view id="{{item.id}}" class="type-navbar-item {{activeCategoryId == item.id ? 'type-item-on' : ''}}" bindtap="tabClick">
-        {{item.name}}
-      </view>
-    </view>
-  </scroll-view>
-  <view wx:for-items="{{categories}}" wx:key="name" class="test" hidden="{{activeCategoryId == item.id ? 'type-item-on' : ''}}">
-    <view class='tab-list'>{{item.name}}</view>
-  </view>
+<!-- 页面tab栏展示 -->
+  <swiper class="swiper" interval="5000" duration="500" style='height:300rpx' bindchange="switchTab" current="{{currentTab}}">
+    <block wx:for-items="{{categories}}" wx:key='*this'>
+      <swiper-item>
+        <view class="test">
+          <view class='tab-list'>{{item.name}}</view>
+        </view>
+      </swiper-item>
+    </block>
+  </swiper>
+
+
+
+
+
 
 </view>

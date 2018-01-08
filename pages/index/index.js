@@ -4,72 +4,54 @@ const app = getApp()
 
 Page({
   data: {
-    motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
+    currentTab: 0, //预设当前项的值
+    imgTab: 0, //预设轮播图当前项的值
+    scrollLeft: 0, //tab标题的滚动条位置
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     categories: [
       { id: 0, name: '关于我们' },
       { id: 1, name: '官网展示' },
+      { id: 2, name: '使用介绍' },
+      { id: 3, name: '健康' },
+      { id: 4, name: '职场' },
+      { id: 5, name: '其他' },
     ],
     movies: [
       { url: 'http://img04.tooopen.com/images/20130712/tooopen_17270713.jpg' },
       { url: 'http://img04.tooopen.com/images/20130617/tooopen_21241404.jpg' },
       { url: 'http://img04.tooopen.com/images/20130701/tooopen_20083555.jpg' },
       { url: 'http://img02.tooopen.com/images/20141231/sy_78327074576.jpg' }
-    ],
-    activeCategoryId: 0,
-    isShow: true,
-    currentTab: 0,
+    ]
   },
-  tabClick: function (e) {
-    // console.log(e)
+
+  // 滚动切换标签样式
+  switchTab: function (e) {
     this.setData({
-      activeCategoryId: e.currentTarget.id
+      currentTab: e.detail.current
     });
+    this.checkCor();
+    console.log(e);
   },
-
-
-  //事件处理函数
-  bindViewTap: function () {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  },
-  onLoad: function () {
-    if (app.globalData.userInfo) {
+  // 点击标题切换当前页时改变样式
+  swichNav: function (e) {
+    var cur = e.target.dataset.current;
+    if (this.data.currentTab == cur) { return false; }
+    else {
       this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse) {
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
+        currentTab: cur
       })
     }
   },
-  getUserInfo: function (e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
-  }
+  //判断当前滚动超过一屏时，设置tab标题滚动条。
+  checkCor: function () {
+    if (this.data.currentTab > 4) {
+      this.setData({
+        scrollLeft: 300
+      })
+    } else {
+      this.setData({
+        scrollLeft: 0
+      })
+    }
+  },
 })
